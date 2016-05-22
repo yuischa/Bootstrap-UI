@@ -6,6 +6,10 @@ angular.module('sample.routes', ["ngRoute"])
                 //controller: "",
                 templateUrl: "/template/hi.html"
             })
+            .when("/accordion", {
+                //controller: "",
+                templateUrl: "/template/accordion.html"
+            })
             .otherwise({
                 redirectTo: "/hi"
             });
