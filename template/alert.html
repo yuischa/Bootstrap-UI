@@ -1,0 +1,12 @@
+<div ng-controller="AlertDemoCtrl">
+    <script type="text/ng-template">
+        <div class="alert" style="background-color:#fa39c3;color:white" role="alert">
+            <div ng-transclude></div>
+        </div>
+    </script>
+
+    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+    <uib-alert style="color:blueviolet">A happy alert!</uib-alert>
+    <button type="button" class="btn btn-default" ng-click="addAlert()">Add alert</button>
+
+</div>

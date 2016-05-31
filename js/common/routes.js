@@ -7,8 +7,12 @@ angular.module('sample.routes', ["ngRoute"])
                 templateUrl: "/template/hi.html"
             })
             .when("/accordion", {
-                //controller: "",
+                controller: "AccordionDemoCtrl",
                 templateUrl: "/template/accordion.html"
+            })
+            .when("/alerts", {
+                controller: "AlertDemoCtrl",
+                templateUrl: "/template/alert.html"
             })
             .otherwise({
                 redirectTo: "/hi"
