@@ -14,6 +14,10 @@ angular.module('sample.routes', ["ngRoute"])
                 controller: "AlertDemoCtrl",
                 templateUrl: "/template/alert.html"
             })
+            .when("/buttons", {
+                controller: "ButtonsCtrl",
+                templateUrl: "/template/buttons.html"
+            })
             .otherwise({
                 redirectTo: "/hi"
             });
