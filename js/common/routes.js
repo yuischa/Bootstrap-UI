@@ -38,6 +38,10 @@ angular.module('sample.routes', ["ngRoute"])
                 controller: "DatepickerPopupDemoCtrl",
                 templateUrl: "/template/date-picker-popup.html"
             })
+            .when("/dropdown", {
+                controller: "DropDownCtrl",
+                templateUrl: "/template/dropdown.html"
+            })
             .otherwise({
                 redirectTo: "/hi"
             });
