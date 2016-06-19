@@ -72,5 +72,212 @@ angular.module('sample', ["sample.routes", "ui.bootstrap"])
         });
     })
 
+    .controller("CarouselDemoCtrl", function ($scope) {
+        $scope.myInterval = 5000;
+        $scope.noWrapSlides = false;
+        $scope.active = 0;
+        var slides = $scope.slides = [];
+        var currIndex = 0;
+
+        $scope.addSlide = function () {
+            var newWidth = 600 + slides.length + 1;
+            slides.push({
+                image: 'http://lorempixel.com/' + newWidth + '/300',
+                text: ["Nice image", "Awesome photograph", "That is so cool", "I love that"][slides.length % 4],
+                id: currIndex++
+            });
+        };
+
+        $scope.randomize = function () {
+            var indexes = generateIndexesArray();
+            assignnewIndexesToSlides(indexes);
+        };
+
+        for (var i = 0; i < 4; i++) {
+            $scope.addSlide();
+        }
+
+        function assignNewIndexesToSlides(indexes) {
+            for (var i = 0, l = slides.length; i < l; i++) {
+                slides[i].id = indexes.pop();
+            }
+        }
+
+        function generateIndexesArray() {
+            var indexes = [];
+            for (var i = 0; i < currIndex; i++) {
+                indexes[i] = i;
+            }
+            return shuffle(indexes);
+        }
+
+        function shuffle(array) {
+            var tmp, current, top = array.length;
+
+            if (top) {
+                while (--top) {
+                    current = Math.floor(Math.random() * (top + 1));
+                    tmp = array[current];
+                    array[current] = array [top];
+                    array[top] = tmp;
+                }
+            }
+            return array;
+        }
+    })
+
+    .controller("CollapseDemoCtrl", function ($scope) {
+        $scope.isCollapsed = false;
+    })
+
+    .controller("DateParserCtrl", function ($scope, uibDateParser) {
+        $scope.format = 'yyyy/MM/dd';
+        $scope.date = new Date();
+    })
+
+    .controller("DatePickerCtrl", function ($scope) {
+        $scope.today = function () {
+            $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+        $scope.options = {
+            minDate: new Date(),
+            showWeeks: true
+        };
+
+        //disable weekend
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+
+        $scope.toggleMin = function () {
+            $scope.options.minDate = $scope.options.minDate ? null : new Date();
+        };
+
+        $scope.toggleMin();
+
+        $scope.setDate = function (year, month, day) {
+            $scope.dt = new Date(year, month, day);
+        };
+
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        var afterTomorrow = new Date(tomorrow);
+        afterTomorrow.setDate(tomorrow.getDate() + 1);
+        $scope.events = [
+            {
+                date: tomorrow,
+                status: "full"
+            },
+            {
+                date: afterTomorrow,
+                status: "partially"
+            }
+        ];
+
+    })
+
+    .controller("DatepickerPopupDemoCtrl", function ($scope) {
+        $scope.today = function () {
+            $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+        $scope.inlineOptions = {
+            customClass: getDayClass,
+            minDate: new Date(),
+            showWeeks: true
+        };
+
+        $scope.dateOptions = {
+            dateDisabled: disabled,
+            formatYear: 'yy',
+            maxDate: new Date(2020, 5, 22),
+            minDate: new Date(),
+            startingDay: 1
+        }
+
+        //Disable weekend
+
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === "day" && (date.getDay() === 0 || date.getDay() === 6);
+        }
+
+        $scope.toggleMin = function () {
+            $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+            $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+        };
+
+        $scope.toggleMin();
+
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.setDate = function (year, month, day) {
+            $scope.dt = new Date(year, month, day);
+        };
+
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats [0];
+        $scope.altInputFormats = ['M!/d!/yyyy'];
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
+
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        var afterTomorrow = new Date();
+        afterTomorrow.setDate(tomorrow.getDate() + 1);
+        $scope.events = [
+            {
+                date: tomorrow,
+                status: "full"
+            },
+            {
+                date: afterTomorrow,
+                status: "partially"
+            }
+        ];
+
+        function getDayClass(data) {
+            var date = data.date,
+                mode = data.mode;
+            if (mode === "day") {
+                var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+                for (var i = 0; i < $scope.events.length; i++) {
+                    var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                    if (dayToCheck === currentDay) {
+                        return $scope.events[i].status;
+                    }
+                }
+            }
+            return '';
+        }
+    });
 
 ;

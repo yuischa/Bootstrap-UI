@@ -18,6 +18,26 @@ angular.module('sample.routes', ["ngRoute"])
                 controller: "ButtonsCtrl",
                 templateUrl: "/template/buttons.html"
             })
+            .when("/carousel", {
+                controller: "CarouselDemoCtrl",
+                templateUrl: "/template/carousel.html"
+            })
+            .when("/collapse", {
+                controller: "CollapseDemoCtrl",
+                templateUrl: "/template/collapse.html"
+            })
+            .when("/dates-parse", {
+                controller: "DateParserCtrl",
+                templateUrl: "/template/dates-parse.html"
+            })
+            .when("/date-picker", {
+                controller: "DatePickerCtrl",
+                templateUrl: "/template/date-picker.html"
+            })
+            .when("/date-popup", {
+                controller: "DatepickerPopupDemoCtrl",
+                templateUrl: "/template/date-picker-popup.html"
+            })
             .otherwise({
                 redirectTo: "/hi"
             });
