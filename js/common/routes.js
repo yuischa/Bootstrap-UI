@@ -42,6 +42,10 @@ angular.module('sample.routes', ["ngRoute"])
                 controller: "DropDownCtrl",
                 templateUrl: "/template/dropdown.html"
             })
+            .when("/modal", {
+                controller: "ModalDemoCtrl",
+                templateUrl: "/template/modal.html"
+            })
             .otherwise({
                 redirectTo: "/hi"
             });

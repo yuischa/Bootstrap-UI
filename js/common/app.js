@@ -280,28 +280,70 @@ angular.module('sample', ["sample.routes", "ui.bootstrap"])
         }
     })
 
-.controller("DropDownCtrl",function($scope,$log){
-    $scope.items = [
-        "The first choice.",
-        "And another choice",
-        "But wait, a third."
-    ];
+    .controller("DropDownCtrl", function ($scope, $log) {
+        $scope.items = [
+            "The first choice.",
+            "And another choice",
+            "But wait, a third."
+        ];
 
-    $scope.status = {
-        isopen: false
-    };
+        $scope.status = {
+            isopen: false
+        };
 
-    $scope.toggled = function (open) {
-        $log.log("Dropdown is now: ", open);
-    };
+        $scope.toggled = function (open) {
+            $log.log("Dropdown is now: ", open);
+        };
 
-    $scope.toggleDropdown = function ($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        $scope.status.isopen = !$scope.status.isopen;
-    };
+        $scope.toggleDropdown = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.status.isopen = !$scope.status.isopen;
+        };
 
-    $scope.appendToEl = angular.element(document.querySelector("#dropdown-long-content"));
-})
+        $scope.appendToEl = angular.element(document.querySelector("#dropdown-long-content"));
+    })
 
+    .controller("ModalDemoCtrl", function ($scope, $uibModal, $log) {
+        $scope.items = ['item1', 'item2', 'item3'];
+
+        $scope.animationsEnabled = true;
+
+        $scope.open = function (size) {
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: "myModalContent.html",
+                controller: "ModalInstanceCtrl",
+                size: size,
+                resolve: {
+                    items: function () {
+                        return $scope.items;
+                    }
+                }
+            }).result.then(function (selectedItem) {
+                    $scope.selected = selectedItem;
+                },
+                function () {
+                    $log.info("modal dismissed at: " + new Date());
+                });
+
+            $scope.toggleAnimation = function () {
+                $scope.animationsEnabled = $scope.animationsEnabled;
+            };
+        }
+    })
+
+    .controller("ModalInstanceCtrl", function ($scope, $uibModalInstance, items) {
+        $scope.items = items;
+        $scope.selected = {
+            item: $scope.items[0]
+        };
+
+        $scope.ok = function () {
+            $uibModalInstance.close($scope.selected.item);
+        };
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss("cancel");
+        };
+    })
 ;
