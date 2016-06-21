@@ -46,6 +46,10 @@ angular.module('sample.routes', ["ngRoute"])
                 controller: "ModalDemoCtrl",
                 templateUrl: "/template/modal.html"
             })
+            .when("/tabs", {
+                controller: "TabsDemoCtrl",
+                templateUrl: "/template/tabs.html"
+            })
             .otherwise({
                 redirectTo: "/hi"
             });
