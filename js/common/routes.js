@@ -50,6 +50,10 @@ angular.module('sample.routes', ["ngRoute"])
                 controller: "TabsDemoCtrl",
                 templateUrl: "/template/tabs.html"
             })
+            .when("/timepicker", {
+                controller: "TimepickerDemoCtrl",
+                templateUrl: "/template/timepicker.html"
+            })
             .otherwise({
                 redirectTo: "/hi"
             });
