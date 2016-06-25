@@ -54,6 +54,10 @@ angular.module('sample.routes', ["ngRoute"])
                 controller: "TimepickerDemoCtrl",
                 templateUrl: "/template/timepicker.html"
             })
+            .when("/tooltip", {
+                controller: "TooltipDemoCtrl",
+                templateUrl: "/template/tooltip.html"
+            })
             .otherwise({
                 redirectTo: "/hi"
             });
